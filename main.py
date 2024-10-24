@@ -34,4 +34,6 @@ def update(t):
 # Create animation
 ani = FuncAnimation(fig, update, frames=np.linspace(0, 2, 200), blit=True)
 
-plt.show()
+# Add a __main__ block to run the simulation
+if __name__ == "__main__":
+    plt.show()
