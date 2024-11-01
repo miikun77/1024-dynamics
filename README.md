@@ -1,6 +1,6 @@
 # 1024-dynamics
 
-## インストール
+## ライブラリのインストール
 
 matplotlib を入れる
 
@@ -12,6 +12,12 @@ or
 
 ```bash
 pip install matplotlib
+```
+
+## リポジトリの clone
+
+```bash
+git clone https://github.com/miikun77/1024-dynamics.git
 ```
 
 ## 実行
