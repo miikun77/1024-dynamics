@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
+import sounddevice as sd
 
 # Define the wave equation function
 def wave_equation(x, t, x0, num_terms=100):
@@ -10,6 +11,13 @@ def wave_equation(x, t, x0, num_terms=100):
         for n in range(1, num_terms + 1)
     ], axis=0)
     return y
+
+# Define a function to generate sound based on wave amplitude
+def generate_sound(amplitude, duration=0.1, sample_rate=44100):
+    t = np.linspace(0, duration, int(sample_rate * duration), endpoint=False)
+    frequency = 440 + 440 * amplitude  # Base frequency of 440 Hz (A4) plus modulation
+    waveform = 0.5 * np.sin(2 * np.pi * frequency * t)
+    sd.play(waveform, samplerate=sample_rate)
 
 # Set variables
 x0 = 0.5  # Middle of the string
@@ -26,13 +34,15 @@ ax.set_ylim(-1, 1)
 ax.grid()
 
 # Update function for animation
-def update(t):
+def update(t, sound=False):
     y = wave_equation(x, t, x0, num_terms)
     line.set_ydata(y)
+    if sound:
+        generate_sound(np.max(np.abs(y)))
     return line,
 
 # Create animation
-ani = FuncAnimation(fig, update, frames=np.linspace(0, 2, 200), blit=True)
+ani = FuncAnimation(fig, update, frames=np.linspace(0, 2, 200), blit=True, fargs=(True,))
 
 # Add a __main__ block to run the simulation
 if __name__ == "__main__":
