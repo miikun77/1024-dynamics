@@ -19,9 +19,9 @@ x = np.linspace(0, 1, 100)  # Range of x
 # Create a figure and axis for the animation
 fig, ax = plt.subplots()
 line, = ax.plot(x, wave_equation(x, 0, x0, num_terms))
-ax.set_title('弦の振動のシミュレーション')
-ax.set_xlabel('x 軸')
-ax.set_ylabel('振幅')
+ax.set_title('simulation of wave equation')
+ax.set_xlabel('x')
+ax.set_ylabel('y')
 ax.set_ylim(-1, 1)
 ax.grid()
 
@@ -36,4 +36,5 @@ ani = FuncAnimation(fig, update, frames=np.linspace(0, 2, 200), blit=True)
 
 # Add a __main__ block to run the simulation
 if __name__ == "__main__":
+    ani.save('wave_equation_x0='+str(x0)+'_num='+str(num_terms)+'.gif', writer='pillow', fps=30)
     plt.show()
